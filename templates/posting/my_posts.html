@@ -1,0 +1,12 @@
+<!-- templates/posting/post_confirm.html -->
+{% extends 'base.html' %}
+
+{% block title %}My Posts{% endblock %}
+
+{% block content %}
+{% for post in object_list %}
+  {{ post.title }}
+  {{ post.body }}
+  <br>
+{% endfor %}
+{% endblock %}
