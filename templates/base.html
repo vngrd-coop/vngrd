@@ -1,0 +1,29 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>{% block title %}L'Internationale{% endblock %}</title>
+	</head>
+
+	<body>
+
+	<div>
+		<ul>
+			<li><a href="{% url 'home' %}">Home</a></li>
+			<li><a href="{% url 'create_post' %}">Post</a></li>
+			<li><a href="#">General Forums</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Contact</a></li>
+			<li><a href="{% url 'signup' %}">Sign Up</a></li>
+			{% if user.is_authenticated %}
+			  <li><a href="{% url 'logout' %}"><span>Logout</span></a></li>
+			{% else %}
+			  <li><a href="{% url 'login' %}"><span>Login</span></a></li>
+			{% endif %}  
+		</ul>
+	  {% block content %}
+	  {% endblock %}
+	 </div>
+	</body>
+</html>

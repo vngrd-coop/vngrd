@@ -1,0 +1,9 @@
+<!-- templates/registration/signup_choice.html -->
+{% extends 'base.html' %}
+
+{% block title %}Which User Type?{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'creator_signup' %}">Creator</a></p>
+<p><a href="{% url 'consumer_signup' %}">Consumer</a></p>
+{% endblock %}
