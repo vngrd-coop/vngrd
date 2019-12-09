@@ -1,10 +1,13 @@
 from django.views import generic
 from post.models import Post
-from django_getcurrentuser.middleware import get_current_user
 
 # Create your views here.
 class MyPosts(generic.ListView):
-    # buttons specifying which account type to setup
+    # get the current user from request & filter on that
     model = Post
-    current_user = get_current_user()
-    queryset = self.model.objects.filter(author=current_user)
+    template_name = 'posting/my_posts.html'
+
+    def get(self, request, *args, **kwargs):
+        current_user = request.user
+        self.queryset = self.model.objects.filter(author=current_user)
+        return super().get(request, *args, **kwargs)
