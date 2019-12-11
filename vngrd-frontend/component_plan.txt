@@ -1,0 +1,93 @@
+Functionality & Pages: 
+- Authentication flow
+- Signup flow
+- Account Settings? (idk yet)
+- Home Feed (shows posts of users Following)
+- Consumer Feed 
+  - Shows posts of specific Consumers
+  - ex. When you click on your profile, you see your own posts
+- Creator Feed
+  - Shows posts of specific Creators
+  - Splits Podcast posts & text posts
+- Create Post (+ creators can post audio)
+- Individual Post page
+  - Shows & allows comments
+- Podcast post locking and unlocking
+- About VNGRD
+- Contact Us 
+- Browse Creators
+  - Clicking on a Creator will bring you to their CreatorPage
+
+
+Common Components:
+- Navigation bar
+  - HomeFeed
+  - About VNGRD
+  - Contact Us
+  - Browse Creators
+  - Login/logout
+- Post displaying
+- Feed
+  - Defaults to minimal detail with each Post object
+  - If user clicks on a Post, it takes them to the Post Page
+- CreatePost
+- Page
+  - Container to hold all the Components
+- WallOfText
+  - For HomePage, AboutPage, and ContactPage
+
+
+Data Models:
+- Users: Creators and Consumers
+- Posts (all have an author that is a User)
+  - TextPost
+  - AudioPost
+  - PicturePost?
+- Comments
+
+
+So the HomeFeed page could look like this from a Components perspective:
+
+Page -> Feed -> PostMinimal -> GET /homefeed/
+
+if this request returns empty, show button to BrowseCreators (they probably just signed up)
+
+UserFeed: 
+Page -> Feed -> PostMinimal -> GET /userfeed/<uid>
+
+where GET /userfeed/<uid> returns JSON array of Post objects filtered by author
+    field of who the user follows
+
+HomePage:
+Page -> WallOfText -> HomePage
+
+CreatPostPage for creators:
+Page -> CreatePost -> (text?podcast) -> (TextPost?PodcastPost) -> POST /createpost/
+
+CreatePostPage for consumers:
+Page -> CreatePost -> TextPost -> POST /createpost/
+
+
+Authentication design:
+- POST /signup/
+  - email
+  - username
+  - password * 2
+  - optional picture (random from pool of defaults will be assigned if none given)
+  - Consumer or Creator?
+    - if Creator: additional signup steps + vetting (pends account creation)
+    - if Consumer: create account and redirects to HomeFeed 
+- POST /login/
+  - username
+  - password
+  - redirects to HomeFeed
+- POST /resetpassword/
+  - email
+  - redirects to:
+    - "No account with this email"
+    - "Check your inbox and click the link"
+      - Links to POST /setpassword
+-POST /setpassword/
+  - new password * 2 for confirmation
+  - redirects to:
+    - "Password Saved, go to HomeFeed?"
