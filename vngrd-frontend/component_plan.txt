@@ -56,7 +56,7 @@ UserFeed:
 Page -> Feed -> PostMinimal -> GET /userfeed/<uid>
 
 where GET /userfeed/<uid> returns JSON array of Post objects filtered by author
-    field of who the user follows
+    field of who the user follows. parse request.get_full_path() to get uid & filter
 
 HomePage:
 Page -> WallOfText -> HomePage

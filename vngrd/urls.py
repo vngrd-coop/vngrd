@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
+from rest_framework_jwt.views import obtain_jwt_token
 from core.views import index
 
 urlpatterns = [
@@ -23,5 +24,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('api/', include('api.urls')),
     path('post/', include('post.urls')),
+    path('token-auth/', obtain_jwt_token),
     path('', index, name='index'),
 ]
