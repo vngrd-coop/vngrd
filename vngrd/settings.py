@@ -42,12 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    #'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
     'accounts.apps.AccountsConfig',
     'post.apps.PostConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'vngrd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'vngrd-frontend')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,6 +80,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vngrd.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -129,9 +142,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-#STATIC_URL = '/static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'vngrd-frontend', "build", "static"),
+)
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
