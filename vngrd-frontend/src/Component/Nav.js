@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {BrowserRouter as Router, Route, Link} from "react-router-dom"
+import AllPosts from "./AllPosts/"
 
 function Nav(props) {
   const logged_out_nav = (
+  <Router>
     <ul>
       <li onClick={() => props.display_form('login')}>login</li>
       <li onClick={() => props.display_form('signup')}>signup</li>
+      <li>
+        <Link to="/all_posts">All posts</Link>
+      </li>
+      <Route path="/all_posts" component={AllPosts} />
     </ul>
+  </Router>
   );
 
   const logged_in_nav = (
