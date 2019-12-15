@@ -17,7 +17,7 @@ function LoginPage(props) {
     };
 
     return (
-        <form onSubmit={() => auth.login(username, password)}>
+        <form onSubmit={(e) => auth.login(e, username, password)}>
             <h4>Log In</h4>
             <label htmlFor='username'>Username</label>
             <input

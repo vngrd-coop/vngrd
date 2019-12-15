@@ -26,8 +26,10 @@ function useProvideAuth() {
 
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
-  const login = (username, password) => {
+  const login = (e, username, password) => {
+      e.preventDefault();
       var data = {username: username, password: password};
+      console.log("before fetch");
       fetch('http://localhost:8000/token-auth/', {
           method: 'POST',
           headers: {
@@ -37,7 +39,8 @@ function useProvideAuth() {
       })
       .then(res => res.json())
       .then(json => localStorage.setItem('token', json.token));
-      setUser(username)
+      console.log("before setUser");
+      setUser(username);
   };
 
 
