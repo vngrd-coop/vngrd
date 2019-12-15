@@ -7,6 +7,15 @@ function LoginPage(props) {
 
     const auth = useAuth();
 
+    const handleChange = e => {
+        if (e.target.name === 'username') {
+            setUsername(e.target.value);
+        }
+        else { // password
+            setPassword(e.target.value);
+        }
+    };
+
     return (
         <form onSubmit={() => auth.login(username, password)}>
             <h4>Log In</h4>
@@ -15,14 +24,14 @@ function LoginPage(props) {
                 type='text'
                 name='username'
                 value={username}
-                onChange={() => setUsername(username)}
+                onChange={handleChange}
             />
             <label htmlFor='password'>Password</label>
             <input
-                type='text'
+                type='password'
                 name='password'
                 value={password}
-                onChange={() => setPassword(password)}
+                onChange={handleChange}
             />
             <input type='submit' />
         </form>
