@@ -8,21 +8,21 @@ function LoginPage(props) {
     const auth = useAuth();
 
     return (
-        <form onSubmit={auth.login(username, password)}>
+        <form onSubmit={() => auth.login(username, password)}>
             <h4>Log In</h4>
             <label htmlFor='username'>Username</label>
             <input
                 type='text'
                 name='username'
                 value={username}
-                onChange={setUsername(username)}
+                onChange={() => setUsername(username)}
             />
             <label htmlFor='password'>Password</label>
             <input
                 type='text'
                 name='password'
                 value={password}
-                onChange={setPassword(password)}
+                onChange={() => setPassword(password)}
             />
             <input type='submit' />
         </form>
