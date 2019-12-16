@@ -26,38 +26,52 @@ function useProvideAuth() {
 
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
-  const login = (e, username, password) => {
+  const login = async (e, username, password) => {
       e.preventDefault();
       var data = {username: username, password: password};
-      console.log("before fetch");
-      fetch('http://localhost:8000/token-auth/', {
+      const resp = await fetch('http://localhost:8000/token-auth/', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)
       })
-      .then(res => res.json())
-      .then(json => localStorage.setItem('token', json.token));
-      console.log("before setUser");
-      setUser(username);
+
+      if (resp.ok) {
+          const json = await resp.json();
+          console.log('good login');
+          localStorage.setItem('token', json.token);
+          setUser(username);
+      }
+      else {
+          console.log("bad login");
+          setUser(false);
+      }
   };
 
 
 
-  const signup = (e, email, username, password) => {
+  const signup = async (e, email, username, password) => {
       e.preventDefault();
       var data = {email: email, username: username, password: password};
-      fetch('http://localhost:8000/api/users/', {
+      const resp = await fetch('http://localhost:8000/api/users/', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)
       })
-      .then(res => res.json())
-      .then(json => localStorage.setItem('token', json.token));
-      setUser(username)
+
+      if (resp.ok) {
+          const json = await resp.json();
+          console.log('good signup');
+          localStorage.setIem('token', json.token);
+          setUser(username);
+      }
+      else {
+          console.log('bad signup WEIRD');
+          setUser(false); // probably unnecessary
+      }
   };
 
 
