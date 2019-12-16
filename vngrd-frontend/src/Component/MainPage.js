@@ -1,8 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { useAuth } from './Hooks/useAuth';
 
 function MainPage(props) {
+    const auth = useAuth();
+
     return (
-        <h1> Main Page </h1>
+        <div>
+            { auth.user ? (
+                <p>Hello { auth.user } </p> 
+            ) : (
+                <p>Not logged in</p>
+            )
+            }
+        </div>
     );
 }
 

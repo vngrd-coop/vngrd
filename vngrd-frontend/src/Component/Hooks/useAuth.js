@@ -45,7 +45,8 @@ function useProvideAuth() {
 
 
 
-  const signup = (email, username, password) => {
+  const signup = (e, email, username, password) => {
+      e.preventDefault();
       var data = {email: email, username: username, password: password};
       fetch('http://localhost:8000/api/users/', {
           method: 'POST',
