@@ -1,23 +1,31 @@
 # VNGRD
-An application for podcasting with subscription tiers
+A cooperative podcasting platform
 
-Tech Stack:
-- Python 3.6.8
-- Django 2.2.7
+## Tech Stack:
+- Django for the backend API
+- PostgreSQL for the database
+- ReactJS to render the frontend
+- SendGrid for automatic emailing
+- Heroku for web hosting (for now)
 
-Dependencies:
-- django-currentuser
-- postgreSQL
-- sendgrid-django
+## Getting setup:
+- `git clone https://github.com/vngrd-coop/vngrd.git`
+- `pip install -r requirements.txt`
+- Make a local postgres database 
+- Take a look at /vngrd/settings.py
+  - Create a file named set.env where you export those environment variables used in settings.py
+  - I think SECRET_KEY can be anything for now, but if not lmk & I'll give you what I use
+  - If you want to work on auto emailing users (like for password reset, etc), lmk & I'll give you that API key
+- `. set.env`
+- `python manage.py makemigrations` -> makes the SQL code
+- `python manage.py migrate` -> puts that SQL in your local DB
+- `cd vngrd-frontend && npm run build`
+- ` cd .. && python manage.py runserver`
+- Go to 127.0.0.1:8000 in your browser
 
-To get started:
-- Clone this repository (duh)
-- Install Python, Django, django-currentuser, postreSQL (the dev package), and sendgrid-django
-- Look at the DATABASES part in settings.py and configure your database to use those settings
-- Run `python manage.py makemigrations` then `python manage.py migrate`
-- Run `python manage.py runserver` & browse to 127.0.0.1 & hopefully it works!
-
-Some notes:
-- We should setup a database that we can both use instead of having two separate DBs with identical settings
-- There's probably a better way to get the current user than to add a whole dependency, but I was feeling lazy
-- Pretty much everything in the static directory I got from a free online template & just barrowed everything
+## Current State (updated 12/18/19)
+- Signup works
+- Login works
+- When you refresh the page, it signs out the user
+  - I think we need to use some persistent state store like Redux or something
+- Checkout vngrd-frontend/component_plan.txt for an outline of how I vision the product working
