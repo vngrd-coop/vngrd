@@ -13,6 +13,8 @@ Functionality & Pages:
 - Individual Post page
   - Shows & allows comments
 - Podcast post locking and unlocking
+- Tiering subscriptions
+- Assign podcast to specific tier
 - About VNGRD
 - Contact Us 
 - Browse Creators
