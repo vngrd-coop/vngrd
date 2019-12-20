@@ -41,6 +41,7 @@ function useProvideAuth() {
           const json = await resp.json();
           console.log('good login');
           localStorage.setItem('token', json.token);
+          localStorage.setItem('user', username);
           setUser(username);
       }
       else {
@@ -65,7 +66,8 @@ function useProvideAuth() {
       if (resp.ok) {
           const json = await resp.json();
           console.log('good signup');
-          localStorage.setIem('token', json.token);
+          localStorage.setItem('token', json.token);
+          localStorage.setItem('user', username);
           setUser(username);
       }
       else {
@@ -78,6 +80,7 @@ function useProvideAuth() {
 
   const logout = () => {
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
       setUser(false);
   };
 
@@ -99,20 +102,12 @@ function useProvideAuth() {
   // ... component that utilizes this hook to re-render with the ...
   // ... latest auth object.
   useEffect(() => {
-
-    const unsubscribe = (user => {
-        // if the user has a JWT, then set the userset
-        if (localStorage.getItem('token')) {
-            setUser(user);
-        }
-        else {
-            setUser(false);
-        }
-    });
-
-
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
+      if (localStorage.getItem('token') != null) {
+          setUser(localStorage.getItem('user'));
+      }
+      else {
+          setUser(false);
+      }
   }, []);
 
   
