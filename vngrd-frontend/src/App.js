@@ -6,7 +6,7 @@ import { ProvideAuth } from './Component/Hooks/useAuth.js'
 
 const App = () => (
     <div className='app'>
-        <h1> App.js </h1>
+        <h1> VNGRD </h1>
         <ProvideAuth>
             <Navigator />
             <Main />
