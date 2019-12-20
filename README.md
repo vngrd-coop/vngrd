@@ -26,6 +26,4 @@ A cooperative podcasting platform
 ## Current State (updated 12/18/19)
 - Signup works
 - Login works
-- When you refresh the page, it signs out the user
-  - I think we need to use some persistent state store like Redux or something
 - Checkout vngrd-frontend/component_plan.txt for an outline of how I vision the product working
